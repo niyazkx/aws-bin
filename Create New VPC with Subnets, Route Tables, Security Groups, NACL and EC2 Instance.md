@@ -1,4 +1,5 @@
 # ⚙️ Create New VPC with Subnets, Route Tables, Security Groups, NACL and EC2 Instance
+https://www.youtube.com/watch?v=gUesnoDzNr4
 
 ## 📕 Launch VPC
 
