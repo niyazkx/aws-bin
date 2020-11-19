@@ -106,7 +106,7 @@ Now create two EC2 Instances, One for Public and another one for Private.
   - `Subnet`: Public Subnet
   - `Auto-assign Public IP`: Enable
 - 🟡 On the **Configure Security Group** page:
-  - `Assign a security group`: Select the existing one that you've created already
+  - `Assign a security group`: Select the existing one if already have / Create new.
 - 🟡 Review and launch
 - 🟡 Create and download the key pair(.pem file) to access the instance in future.
 - 🟢 Finally, Launch Instances.
@@ -143,3 +143,22 @@ By default there allowing all traffic (0.0.0.0/0) which is not safe. So change i
   - 🟢 Click **Save**
   
 
+
+## 📕 NAT Gateways
+To establish oneway connection to the internet for private instance.
+
+- 🟡 Select **Create NAT Gateway**
+  - `Name`:Give Name of the NAT
+  - `Subnet`: Choose the public subnet of the VPC
+  - `Elastic IP allocation ID`: Click **Allocate Elastic IP**
+- 🟢 Finally click **Create NAT Gateway**
+
+> Note - Create a new pem file(copy from public instance pem file that you downloaded) to access the private instance through public instance.
+
+Now go to Route Tables, do followings:
+- 🟡 Select your Private Route Table
+- 🟡 Select **Routes** tab and click **Edit routes**
+- 🟡 Click **Add route** 
+  -`Destination`: 0.0.0.0/0
+  -`Target`: Choose your NAT Gateway
+- 🟢 Click **Save Routes**
