@@ -111,7 +111,7 @@ Now create two EC2 Instances, One for Public and another one for Private.
 - 🟡 Create and download the key pair(.pem file) to access the instance in future.
 - 🟢 Finally, Launch Instances.
 
-📌 You'll see that Instance is initializing, in the meantime give your instance a name (eg. ec2-public)
+📌 You'll see that Instance is initializing, give your instance a name (eg. ec2-public)
 Following the same procedure create another instance for private. Make sure that you choose your **Private Subnet** and **Security Group**. Choose the same key pair that you've created for public instance. 
 
 
@@ -153,12 +153,12 @@ To establish oneway connection to the internet for private instance.
   - `Elastic IP allocation ID`: Click **Allocate Elastic IP**
 - 🟢 Finally click **Create NAT Gateway**
 
-> Note - Create a new pem file(copy from public instance pem file that you downloaded) to access the private instance through public instance.
+📌 Note - Create a new pem file(copy from public instance pem file that you downloaded) to access the private instance through public instance.
 
 Now go to Route Tables, do followings:
 - 🟡 Select your Private Route Table
 - 🟡 Select **Routes** tab and click **Edit routes**
 - 🟡 Click **Add route** 
-  -`Destination`: 0.0.0.0/0
-  -`Target`: Choose your NAT Gateway
+  - `Destination`: 0.0.0.0/0
+  - `Target`: Choose your NAT Gateway
 - 🟢 Click **Save Routes**
