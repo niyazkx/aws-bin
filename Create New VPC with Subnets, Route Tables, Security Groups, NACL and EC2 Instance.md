@@ -1,11 +1,12 @@
 # ⚙️ Create New VPC with Subnets, Route Tables, Security Groups, NACL and EC2 Instance
 https://www.youtube.com/watch?v=gUesnoDzNr4
+https://www.youtube.com/watch?v=b1b6JTYnbjU
 
 ## 📕 Launch VPC
 
 - 🟡 Go to **Services**
 - 🟡 Search for VPC and then VPC Dashboard
-- 🟡 Go to **Your VPC** from left Navbar
+- 🟡 Go to **Your VPC** from left Navbar or You can Click **Launch Wizard** where you can find guided instructions step by step to create VPC.
 - 🟡 Click **Create VPC**
   - `Name Tag:` Your VPC Name (eg. my_demo_vpc)
   - `Ipv4 CIDR  block*:` Specify your IP Range (eg. 10.0.0.0/16)
