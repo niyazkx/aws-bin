@@ -1,6 +1,7 @@
 # ⚙️ Create New VPC with Subnets, Route Tables, Security Groups, NACL and EC2 Instance
-https://www.youtube.com/watch?v=gUesnoDzNr4
-https://www.youtube.com/watch?v=b1b6JTYnbjU
+
+- Link: https://www.youtube.com/watch?v=gUesnoDzNr4
+- Link: https://www.youtube.com/watch?v=b1b6JTYnbjU
 
 ## 📕 Launch VPC
 
@@ -13,22 +14,7 @@ https://www.youtube.com/watch?v=b1b6JTYnbjU
   - `Ipv6 CIDR block:` Choose **No Ipv6 CIDR Block**
   - `Tenancy:` Default
 - 🟢 Finally, Click **Create** to finish, You'll see success message with your **VPC ID**.
- 
- 
-## 📕 Internet Gateway
-It helps to connect to EC2 instance through amazon public network.
-- 🟡 Go to **Internet Gateway** from left Navbar(VPC Dashboard)
-- 🟡 Click **Create internet gateway**
-- 🟡 Give `Name Tag:` Your internet gateway name(eg. my_demo_igw)
-- 🟢 Finally, Click **Create** to finish, You'll see success message with your **Internet Gateway ID**.
 
-      📌 ⚠️ After finishing the above steps, you can see that your Internet Gateway's **state** is `detached`.
-            Follow belows steps to attach this with the VPC:
-
-            - 🟡 Right click on your given internet gateway name (eg. my_demo_igw)
-            - 🟡 Click **Attach to VPC**
-            - 🟡 Select your created VPC from dropdown.
-            - 🟢 Finally, Click **Attach** and you'll see that your Internet Gateway's **state** is now `attached`.
 
 
 ## 📕 Subnets
@@ -50,6 +36,24 @@ We need two subnets Public and Private. Public Subnet for the resources which ar
     - `Ipv4 CIDR Block*:` Give your public subnet range(eg. 10.0.2.0/24)
 - 🟢 Finally, Click **Create** to finish, You'll see success message with your **Subnet ID**.
  
+
+
+ 
+## 📕 Internet Gateway
+It helps to connect to EC2 instance through amazon public network.
+- 🟡 Go to **Internet Gateway** from left Navbar(VPC Dashboard)
+- 🟡 Click **Create internet gateway**
+- 🟡 Give `Name Tag:` Your internet gateway name(eg. my_demo_igw)
+- 🟢 Finally, Click **Create** to finish, You'll see success message with your **Internet Gateway ID**.
+
+      📌 ⚠️ After finishing the above steps, you can see that your Internet Gateway's **state** is `detached`.
+            Follow belows steps to attach this with the VPC:
+
+            - 🟡 Right click on your given internet gateway name (eg. my_demo_igw)
+            - 🟡 Click **Attach to VPC**
+            - 🟡 Select your created VPC from dropdown.
+            - 🟢 Finally, Click **Attach** and you'll see that your Internet Gateway's **state** is now `attached`.
+
  
  
 ## 📕 Route Tables
@@ -87,7 +91,30 @@ Now, there will be two Route tables:
     - 🟡 You'll see two subnets that you created earilier. Select the Private Subnet.
     - 🟢 Click **Save**
     
-    
+
+## 📕 EC2 Instance
+Now create two EC2 Instances, One for Public and another one for Private.
+
+- 🟡 Go to **Services**
+- 🟡 Select **EC2** under Compute section.
+- 🟡 Click **Instances** from left Navbar (EC2 Dashboard)
+- 🟡 Click **Launch Instances** then choose your preferred Instance and continue the next steps...
+- 🟡 On the **Configure Instance Details** page:
+  - `Number of instances`: 
+  - `Purchasing Option`:
+  - `Network`: Your Created VPC
+  - `Subnet`: Public Subnet
+  - `Auto-assign Public IP`: Enable
+- 🟡 On the **Configure Security Group** page:
+  - `Assign a security group`: Select the existing one that you've created already
+- 🟡 Review and launch
+- 🟡 Create and download the key pair(.pem file) to access the instance in future.
+- 🟢 Finally, Launch Instances.
+
+📌 You'll see that Instance is initializing, in the meantime give your instance a name (eg. ec2-public)
+Following the same procedure create another instance for private. Make sure that you choose your **Private Subnet** and **Security Group**. Choose the same key pair that you've created for public instance. 
+
+
     
 ## 📕 Security Groups
 By default, AWS will create a Security Group at the time of creating a VPC. Just Rename it (eg. my_demo_sg)
@@ -115,26 +142,4 @@ By default there allowing all traffic (0.0.0.0/0) which is not safe. So change i
     - `Source`: Paste the **copied IP** from Security Group.
   - 🟢 Click **Save**
   
-  
-  
-## 📕 EC2 Instance
-Now create two EC2 Instances, One for Public and another one for Private.
 
-- 🟡 Go to **Services**
-- 🟡 Select **EC2** under Compute section.
-- 🟡 Click **Instances** from left Navbar (EC2 Dashboard)
-- 🟡 Click **Launch Instances** then choose your preferred Instance and continue the next steps...
-- 🟡 On the **Configure Instance Details** page:
-  - `Number of instances`: 
-  - `Purchasing Option`:
-  - `Network`: Your Created VPC
-  - `Subnet`: Public Subnet
-  - `Auto-assign Public IP`: Enable
-- 🟡 On the **Configure Security Group** page:
-  - `Assign a security group`: Select the existing one that you've created already
-- 🟡 Review and launch
-- 🟡 Create and download the key pair(.pem file) to access the instance in future.
-- 🟢 Finally, Launch Instances.
-
-📌 You'll see that Instance is initializing, in the meantime give your instance a name (eg. ec2-public)
-Following the same procedure create another instance for private. Make sure that you choose your **Private Subnet** and **Security Group**. Choose the same key pair that you've created for public instance. 
