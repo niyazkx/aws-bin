@@ -17,6 +17,7 @@ https://www.youtube.com/watch?v=gUesnoDzNr4
 ## 📕 Internet Gateway
 It helps to connect to EC2 instance through amazon public network.
 - 🟡 Go to **Internet Gateway** from left Navbar(VPC Dashboard)
+- 🟡 Click **Create internet gateway**
 - 🟡 Give `Name Tag:` Your internet gateway name(eg. my_demo_igw)
 - 🟢 Finally, Click **Create** to finish, You'll see success message with your **Internet Gateway ID**.
 
@@ -59,14 +60,80 @@ By default, AWS will create a Route Table at the time of creating a VPC.
   - `VPC*`: Choose your created VPC
 - 🟢 Finally, Click **Create** to finish.
    
-  Now, there will be two Route tables:
-  - Public RT
-  - Private RT
+Now, there will be two Route tables:
+- Public RT
+- Private RT
   
-  Attach the Internet Gateway to **Private RT**
-  - Select the **Public RT**
-  - Select **Routes** Tab
-  - Click **Edit routes** then click **Add route**
-    - `Destination`: 0.0.0.0/0 (This means you can access this from any IP)
-    - `Targets`: Select your created Internet Gateway from the dropdown.
-    - Finally, click **Save routes**
+  ### Public RT
+    Attach the Internet Gateway to **Public RT**
+    - 🟡 Select the **Public RT**
+    - 🟡 Select **Routes** Tab
+    - 🟡 Click **Edit routes** then click **Add route**
+      - `Destination`: 0.0.0.0/0 (This means you can access this from any IP)
+      - `Targets`: Select your created Internet Gateway from the dropdown.
+      - 🟢 Finally, click **Save routes**
+
+    Attach the Public Subnet to **Public RT**
+    - 🟡 Select  **Public RT**
+    - 🟡 Select **Subnet Associations** and click **Edit Subnet Associations**
+    - 🟡 You'll see two subnets that you created earilier. Select the Public Subnet.
+    - 🟢 Click **Save**
+    
+   ### Private RT
+    We dont need any Internet Gateway here as it is a private route table, just attach the Private Subnet to **Private RT**
+    - 🟡 Select  **Private RT**
+    - 🟡 Select **Subnet Associations** and click **Edit Subnet Associations**
+    - 🟡 You'll see two subnets that you created earilier. Select the Private Subnet.
+    - 🟢 Click **Save**
+    
+    
+    
+## 📕 Security Groups
+By default, AWS will create a Security Group at the time of creating a VPC. Just Rename it (eg. my_demo_sg)
+
+Now set Inbound Rules:
+  - 🟡 Select **Inbound Rules** Tab
+  - 🟡 Click **Edit rules**
+  - 🟡 Click **Add Rule**
+    - `Type`: Select **All Traffic** from dropdown (You may choose SSH or others)
+    - `Protocol`: **All**
+    - `Port Range`: **All**
+    - `Source`: **My IP** (Only you can access the instances from this IP. Copy the IP for using in in NACL)
+    - `Description`: Give an identical name.
+  - 🟢 Click **Save Rules**
+ 
+ 
+ 
+## 📕 Network ACLs (NACL)
+By default, AWS will create a NACL at the time of creating a VPC. Just Rename it (eg. my_demo_nacl)
+
+Select **Inbound Rules**
+
+By default there allowing all traffic (0.0.0.0/0) which is not safe. So change it.
+  - 🟡 Click **Edit inbound rules**
+    - `Source`: Paste the **copied IP** from Security Group.
+  - 🟢 Click **Save**
+  
+  
+  
+## 📕 EC2 Instance
+Now create two EC2 Instances, One for Public and another one for Private.
+
+- 🟡 Go to **Services**
+- 🟡 Select **EC2** under Compute section.
+- 🟡 Click **Instances** from left Navbar (EC2 Dashboard)
+- 🟡 Click **Launch Instances** then choose your preferred Instance and continue the next steps...
+- 🟡 On the **Configure Instance Details** page:
+  - `Number of instances`: 
+  - `Purchasing Option`:
+  - `Network`: Your Created VPC
+  - `Subnet`: Public Subnet
+  - `Auto-assign Public IP`: Enable
+- 🟡 On the **Configure Security Group** page:
+  - `Assign a security group`: Select the existing one that you've created already
+- 🟡 Review and launch
+- 🟡 Create and download the key pair(.pem file) to access the instance in future.
+- 🟢 Finally, Launch Instances.
+
+📌 You'll see that Instance is initializing, in the meantime give your instance a name (eg. ec2-public)
+Following the same procedure create another instance for private. Make sure that you choose your **Private Subnet** and **Security Group**. Choose the same key pair that you've created for public instance. 
